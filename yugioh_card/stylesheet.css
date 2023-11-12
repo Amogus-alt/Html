@@ -1,0 +1,113 @@
+:root{
+    --timing:400ms;
+    --rotation:20deg;
+}
+
+html{
+    color-scheme: dark;
+}
+
+body{
+    display:grid;
+    place-content: center;
+    min-height: 100vh;
+    perspective: 1000px;
+
+}
+
+img{
+    max-width:100%;
+}
+
+.yugioh{
+    width: 350px;
+    aspect-ratio: 9 / 16;
+    outline: 1px solid brown;
+   /* background-image: url(https://orig10.deviantart.net/69f2/f/2016/289/4/1/ygo_card_backing__final__by_icycatelf-dal6wsb.png); */
+
+    position: relative;
+    transform-style:preserve-3d;
+
+    transition: rotate var(--timing)ease;
+
+}
+
+.yugioh:hover{
+    rotate: x var(--rotation);
+}
+.yugioh::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    /* background:lime; */
+    z-index:100;
+    background-image: radial-gradient(circle , transparent 150px,black);
+    opacity: 0;
+    transition: opacity var(--timing);
+}
+
+.yugioh:hover::before {
+opacity:1;
+}
+
+
+.yugioh::after{
+    content: "";
+    position: absolute;
+    inset: 80% 0.5rem 0.5rem;
+    translate:0 ;
+    transform: translateZ(-100px);
+    background: black;
+    filter:blur(1rem);
+    z-index: 1;
+    transition: rotate var(--timing), translate var(--timing);
+}
+
+.yugioh:hover::after{
+    rotate: x calc(var(--rotation)* -1);
+    translate:0 60px ;
+}
+
+.bg-image{
+    position:absolute;
+    z-index: 10;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.logo,
+.front-image {
+    position: absolute;
+}
+
+.logo{
+    z-index: 1000 ;
+    filter:contrast(9);
+    width: 65%;
+    margin-inline:auto;
+    inset:auto 0 2rem;
+    transition: var(--timing);
+}
+
+.yugioh:hover .logo,
+.yugioh:hover .front-image{
+    transform:
+        translateY(-2rem)
+        translateZ(20px);
+    rotate: x  calc(var(--rotation)* -1);
+}
+
+.front-image{
+    scale:1.125;
+    transform-origin:bottom;
+    opacity:0;
+    transition: var(--timing);
+    z-index: 100;
+
+}
+
+.yugioh:hover .front-image{
+    opacity: 1;
+   transform: translateY(-2rem) translateZ(20px);
+    rotate: x  calc(var(--rotation)* -1);
+}
